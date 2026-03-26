@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINTAGE SHOP - Товар</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .product-detail-card {
+            background: rgb(242, 215, 219);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgb(249, 30, 165);
+            box-shadow: 0 10px 30px rgba(249, 30, 165, 0.2);
+        }
+        
+        .product-detail-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .product-detail-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-detail-image img {
+            width: 100%;
+            border-radius: 15px;
+            border: 5px solid rgb(249, 30, 165);
+            box-shadow: 0 5px 20px rgba(249, 30, 165, 0.3);
+        }
+        
+        .product-detail-info {
+            flex: 1;
+        }
+        
+        .product-detail-name {
+            font-family: fantasy;
+            font-size: 32px;
+            color: black;
+            text-shadow: 0 0 10px rgb(249, 30, 165);
+            margin-bottom: 15px;
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .product-detail-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: black;
+            -webkit-text-stroke: 1px rgb(249, 30, 165);
+            text-shadow: 2px 2px 4px rgba(249, 30, 165, 0.3);
+            margin: 20px 0;
+        }
+        
+        .product-detail-rating {
+            color: #ffc107;
+            font-size: 20px;
+            margin: 15px 0;
+            text-shadow: 0 0 2px black;
+        }
+        
+        .size-section {
+            margin-bottom: 25px;
+            margin-top: 20px;
+        }
+        
+        .size-label {
+            font-family: fantasy;
+            font-size: 24px;
+            color: black;
+            text-shadow: 0 0 5px rgb(249, 30, 165);
+            margin-bottom: 10px;
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .size-select {
+            font-family: fantasy;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            color: rgb(249, 30, 165);
+        }
+        
+        .size-select:hover {
+            box-shadow: 0 0 15px rgb(249, 30, 165);
+        }
+        
+        .product-detail-description {
+            font-family: fantasy;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            color: black;
+            text-shadow: 0 0 5px rgb(249, 30, 165);
+        }
+        
+        .product-specs {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+        }
+        
+        .product-specs h4 {
+            color: rgb(249, 30, 165);
+            margin-bottom: 10px;
+            font-family: fantasy;
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .product-specs ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .product-specs li {
+            padding: 5px 0;
+            border-bottom: 1px dashed rgb(249, 30, 165);
+            font-family: fantasy;
+            color: black;
+            text-shadow: 0 0 2px black;
+        }
+        
+        .reviews-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgb(242, 215, 219);
+            border-radius: 15px;
+            border: 2px solid rgb(249, 30, 165);
+        }
+        
+        .reviews-title {
+            font-family: fantasy;
+            font-size: 24px;
+            color: rgb(249, 30, 165);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgb(249, 30, 165);
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .review-item {
+            padding: 15px;
+            border-bottom: 1px solid rgb(249, 30, 165);
+        }
+        
+        .review-author {
+            font-weight: bold;
+            color: rgb(249, 30, 165);
+            font-family: fantasy;
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin-left: 10px;
+        }
+        
+        .review-text {
+            margin-top: 5px;
+            color: black;
+            font-family: fantasy;
+            text-shadow: 0 0 2px black;
+        }
+        
+        .add-review-form {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 15px;
+        }
+        
+        .add-review-form h4 {
+            font-family: fantasy;
+            color: rgb(249, 30, 165);
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .add-review-form select,
+        .add-review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 10px;
+            font-family: fantasy;
+            background: white;
+        }
+        
+        .submit-review-btn {
+            background: rgb(10, 1, 5);
+            color: white;
+            border: 2px solid rgb(249, 30, 165);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: fantasy;
+            text-shadow: 0 0 10px rgb(249, 30, 165);
+            transition: all 0.3s;
+        }
+        
+        .submit-review-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .login-to-review {
+            text-align: center;
+            padding: 20px;
+            color: rgb(249, 30, 165);
+            font-family: fantasy;
+        }
+        
+        .login-to-review a {
+            color: rgb(249, 30, 165);
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .back-button {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+        }
+        
+        .back-link, .home-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgb(10, 1, 5);
+            color: white;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: fantasy;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgb(249, 30, 165);
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .back-link:hover, .home-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .cart-btn-detail {
+            width: 100%;
+            padding: 15px;
+            background: rgb(10, 1, 5);
+            color: white;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 30px;
+            font-family: fantasy;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            text-shadow: 0 0 15px rgb(249, 30, 165);
+            -webkit-text-stroke: 0.5px black;
+        }
+        
+        .cart-btn-detail:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgb(249, 30, 165);
+        }
+        
+        .size-section.hidden {
+            display: none;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgb(249, 30, 165);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: fantasy;
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            border: 2px solid white;
+            box-shadow: 0 5px 20px rgba(249, 30, 165, 0.3);
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Стили для шапки */
+        .site-header {
+            background-image: url('Товары/фон.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .site-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-text {
+            font-family: fantasy;
+            font-size: 48px;
+            color: white;
+            text-shadow: 0 0 20px rgb(249, 30, 165), 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .menu-item {
+            position: relative;
+        }
+        
+        .menu-btn {
+            background: white;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 30px;
+            color: rgb(249, 30, 165);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: all 0.3s;
+            font-family: fantasy;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(249, 30, 165, 0.3);
+            overflow: hidden;
+            z-index: 1000;
+            border: 2px solid rgb(249, 30, 165);
+        }
+        
+        .menu-item:hover .submenu {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .submenu a {
+            display: block;
+            padding: 12px 20px;
+            color: rgb(249, 30, 165);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            font-family: fantasy;
+            background: white;
+        }
+        
+        .submenu a:hover {
+            background: rgb(249, 30, 165);
+            border-left-color: white;
+            padding-left: 25px;
+            color: white;
+        }
+        
+        .right {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .auth-btn, .cart-btn {
+            padding: 10px 25px;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: fantasy;
+            font-size: 16px;
+            background: white;
+            color: rgb(249, 30, 165);
+        }
+        
+        .auth-btn:hover, .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .count {
+            background: rgb(249, 30, 165);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            margin-left: 8px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="logo-text">VINTAGE SHOP</h1>
+    </header>
+
+    <div class="main-nav">
+        <nav>
+            <div class="menu-item">
+                <button class="menu-btn">💕 Одежда</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Одежда&subcategory=Джинсы">Джинсы</a>
+                    <a href="catalog.html?category=Одежда&subcategory=Топы">Топы</a>
+                    <a href="catalog.html?category=Одежда&subcategory=Худи">Худи</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">💋 Косметика</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Косметика&subcategory=Уходовая косметика">Уходовая косметика</a>
+                    <a href="catalog.html?category=Косметика&subcategory=Декоративная косметика">Декоративная косметика</a>
+                    <a href="catalog.html?category=Косметика&subcategory=Парфюмерия">Парфюмерия</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">🎂 Коллекционирование</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Коллекционирование&subcategory=Фигурки и Куклы">Фигурки и Куклы</a>
+                    <a href="catalog.html?category=Коллекционирование&subcategory=Мягкие игрушки">Мягкие игрушки</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">🙌 Обувь</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Обувь&subcategory=Кроссовки и кеды">Кроссовки и кеды</a>
+                    <a href="catalog.html?category=Обувь&subcategory=Туфли">Туфли</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">👜 Сумки</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Сумки&subcategory=Сумки и Косметички">Сумки и Косметички</a>
+                    <a href="catalog.html?category=Сумки&subcategory=Обвесы и брелоки">Обвесы и брелоки</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">💌 Украшения</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Украшения&subcategory=Ожерелья и подвески">Ожерелья и подвески</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Кольца и браслеты">Кольца и браслеты</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Очки">Очки</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Часы">Часы</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="right">
+            <button class="auth-btn" id="authBtn" onclick="checkAuthAndRedirect()">👤 Войти</button>
+            <button class="cart-btn" onclick="location.href='cart.html'">🛒 Корзина <span class="count" id="cartCount">0</span></button>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <div class="back-button">
+            <a href="catalog.html" class="back-link">← Назад в каталог</a>
+            <a href="index.html" class="home-link">🏠 На главную</a>
+        </div>
+        
+        <div id="productDetail" class="product-detail-card"></div>
+        
+        <div class="reviews-section">
+            <h3 class="reviews-title">⭐ Отзывы покупателей</h3>
+            <div id="reviewsList"></div>
+            <div id="addReviewBlock"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let currentProduct = null;
+        let productId = null;
+        
+        const sizeOptionsMap = {
+            clothes: ['XS (40-42)', 'S (42-44)', 'M (44-46)', 'L (46-48)', 'XL (48-50)'],
+            shoes: ['35', '36', '37', '38', '39', '40', '41'],
+            bracelet: ['15-16 см', '17-18 см', '19-20 см', '21-22 см'],
+            ring: ['15', '16', '17', '18', '19', '20']
+        };
+        
+        function loadProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            productId = parseInt(urlParams.get('id'));
+            
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) {
+                document.getElementById('productDetail').innerHTML = '<div style="text-align: center; padding: 50px; font-family: fantasy;">Товар не найден</div>';
+                return;
+            }
+            
+            renderProduct();
+            loadReviews();
+        }
+        
+        function getSizeOptions() {
+            if (currentProduct.sizeType === 'clothes') return sizeOptionsMap.clothes;
+            if (currentProduct.sizeType === 'shoes') return sizeOptionsMap.shoes;
+            if (currentProduct.sizeType === 'bracelet') return sizeOptionsMap.bracelet;
+            if (currentProduct.sizeType === 'ring') return sizeOptionsMap.ring;
+            return null;
+        }
+        
+        function renderProduct() {
+            const sizeOptionsList = getSizeOptions();
+            const hasSize = sizeOptionsList !== null && currentProduct.hasSize !== false;
+            
+            const container = document.getElementById('productDetail');
+            container.innerHTML = `
+                <div class="product-detail-content">
+                    <div class="product-detail-image">
+                        <img src="${currentProduct.image}" alt="${currentProduct.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><rect width=%22300%22 height=%22300%22 fill=%22%23f0b2e3%22/><text x=%22120%22 y=%22160%22 fill=%22%23f11968%22>${currentProduct.name[0]}</text></svg>'">
+                    </div>
+                    <div class="product-detail-info">
+                        <h1 class="product-detail-name">${currentProduct.name}</h1>
+                        <div class="product-detail-rating">${'★'.repeat(Math.floor(currentProduct.rating || 4))}${'☆'.repeat(5 - Math.floor(currentProduct.rating || 4))} ${currentProduct.rating || 4}</div>
+                        <div class="product-detail-price">${currentProduct.price.toLocaleString()} ₽</div>
+                        
+                        ${hasSize ? `
+                            <div class="size-section">
+                                <h3 class="size-label">Выберите размер:</h3>
+                                <select class="size-select" id="sizeSelect">
+                                    <option value="">-- Выберите размер --</option>
+                                    ${sizeOptionsList.map(size => `<option value="${size}">${size}</option>`).join('')}
+                                </select>
+                            </div>
+                        ` : '<div class="size-section hidden"></div>'}
+                        
+                        <button class="cart-btn-detail" onclick="addToCartFromProduct()">🛒 Добавить в корзину</button>
+                        
+                        <div class="product-detail-description">
+                            <strong>Описание:</strong><br>
+                            ${currentProduct.description || 'Описание отсутствует'}
+                        </div>
+                        <div class="product-specs">
+                            <h4>Характеристики:</h4>
+                            <ul>
+                                ${currentProduct.specs ? currentProduct.specs.map(s => `<li>${s}</li>`).join('') : '<li>Информация отсутствует</li>'}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function addToCartFromProduct() {
+            const hasSize = currentProduct.hasSize !== false && getSizeOptions() !== null;
+            let selectedSize = null;
+            
+            if (hasSize) {
+                const sizeSelect = document.getElementById('sizeSelect');
+                if (sizeSelect) {
+                    selectedSize = sizeSelect.value;
+                    if (!selectedSize) {
+                        showNotification('Пожалуйста, выберите размер!', 'warning');
+                        return;
+                    }
+                }
+            }
+            
+            addToCart(productId, currentProduct.name, currentProduct.price, currentProduct.image, selectedSize);
+        }
+        
+        function addToCart(id, name, price, image, size) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Проверяем, есть ли уже такой товар с таким же размером
+            const existing = cart.find(item => item.id === id && item.size === size);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ 
+                    id, 
+                    name, 
+                    price, 
+                    image, 
+                    quantity: 1,
+                    size: size || null,
+                    hasSize: !!size
+                });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification('Товар добавлен в корзину!');
+        }
+        
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem(`reviews_${productId}`)) || [];
+            const reviewsList = document.getElementById('reviewsList');
+            
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = '<div style="text-align: center; padding: 20px; font-family: fantasy; color: rgb(249, 30, 165); -webkit-text-stroke: 0.5px black;">Пока нет отзывов. Будьте первым!</div>';
+            } else {
+                reviewsList.innerHTML = reviews.map(review => `
+                    <div class="review-item">
+                        <div>
+                            <span class="review-author">${review.author}</span>
+                            <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+                            <span style="font-size: 12px; color: rgb(249, 30, 165);">${new Date(review.date).toLocaleDateString()}</span>
+                        </div>
+                        <div class="review-text">${review.text}</div>
+                    </div>
+                `).join('');
+            }
+            
+            const user = localStorage.getItem('user');
+            const addReviewBlock = document.getElementById('addReviewBlock');
+            
+            if (user) {
+                addReviewBlock.innerHTML = `
+                    <div class="add-review-form">
+                        <h4>Оставить отзыв</h4>
+                        <select id="reviewRating">
+                            <option value="5">★★★★★ (5)</option>
+                            <option value="4">★★★★☆ (4)</option>
+                            <option value="3">★★★☆☆ (3)</option>
+                            <option value="2">★★☆☆☆ (2)</option>
+                            <option value="1">★☆☆☆☆ (1)</option>
+                        </select>
+                        <textarea id="reviewText" rows="3" placeholder="Ваш отзыв..."></textarea>
+                        <button class="submit-review-btn" onclick="submitReview()">Отправить отзыв</button>
+                    </div>
+                `;
+            } else {
+                addReviewBlock.innerHTML = `
+                    <div class="login-to-review">
+                        🔐 <a href="login.html">Войдите</a>, чтобы оставить отзыв
+                    </div>
+                `;
+            }
+        }
+        
+        function submitReview() {
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const text = document.getElementById('reviewText').value;
+            
+            if (!text.trim()) {
+                alert('Напишите текст отзыва');
+                return;
+            }
+            
+            const user = JSON.parse(localStorage.getItem('user'));
+            const reviews = JSON.parse(localStorage.getItem(`reviews_${productId}`)) || [];
+            
+            reviews.push({
+                author: user.email.split('@')[0],
+                rating: rating,
+                text: text,
+                date: new Date().toISOString()
+            });
+            
+            localStorage.setItem(`reviews_${productId}`, JSON.stringify(reviews));
+            
+            const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const productIndex = products.findIndex(p => p.id === productId);
+            if (productIndex !== -1) {
+                products[productIndex].rating = Math.round(avgRating * 10) / 10;
+                localStorage.setItem('products', JSON.stringify(products));
+                currentProduct.rating = products[productIndex].rating;
+                renderProduct();
+            }
+            
+            document.getElementById('reviewText').value = '';
+            loadReviews();
+            showNotification('Спасибо за отзыв!');
+        }
+        
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCounts = document.querySelectorAll('#cartCount');
+            cartCounts.forEach(el => { if (el) el.textContent = count; });
+        }
+        
+        function showNotification(msg, type = 'success') {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = msg;
+            if (type === 'warning') {
+                notif.style.background = '#ff9800';
+            }
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+        }
+        
+        function checkAuthAndRedirect() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                window.location.href = 'account.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProduct();
+            updateCartCount();
+            
+            const user = localStorage.getItem('user');
+            const authBtn = document.getElementById('authBtn');
+            if (user) {
+                const userData = JSON.parse(user);
+                authBtn.innerHTML = `👤 ${userData.email.split('@')[0]}`;
+            }
+        });
+    </script>
+</body>
+</html>

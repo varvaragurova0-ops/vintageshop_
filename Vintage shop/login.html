@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в личный кабинет</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+        
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .login-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        
+        .login-box button:hover {
+            transform: scale(1.02);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        
+        .hint {
+            color: #999;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .admin-hint {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .site-header {
+            background-image: url('Товары/фон.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .site-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-text {
+            font-family: fantasy;
+            font-size: 48px;
+            color: white;
+            text-shadow: 0 0 20px rgb(249, 30, 165), 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .menu-item {
+            position: relative;
+        }
+        
+        .menu-btn {
+            background: white;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 30px;
+            color: rgb(249, 30, 165);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: all 0.3s;
+            font-family: fantasy;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(249, 30, 165, 0.3);
+            overflow: hidden;
+            z-index: 1000;
+            border: 2px solid rgb(249, 30, 165);
+        }
+        
+        .menu-item:hover .submenu {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .submenu a {
+            display: block;
+            padding: 12px 20px;
+            color: rgb(249, 30, 165);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            font-family: fantasy;
+            background: white;
+        }
+        
+        .submenu a:hover {
+            background: rgb(249, 30, 165);
+            border-left-color: white;
+            padding-left: 25px;
+            color: white;
+        }
+        
+        .right {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .auth-btn, .cart-btn {
+            padding: 10px 25px;
+            border: 2px solid rgb(249, 30, 165);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: fantasy;
+            font-size: 16px;
+            background: white;
+            color: rgb(249, 30, 165);
+        }
+        
+        .auth-btn:hover, .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgb(249, 30, 165);
+        }
+        
+        .count {
+            background: rgb(249, 30, 165);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            margin-left: 8px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="logo-text">VINTAGE SHOP</h1>
+    </header>
+
+    <div class="main-nav">
+        <nav>
+            <div class="menu-item">
+                <button class="menu-btn">💕 Одежда</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Одежда&subcategory=Джинсы">Джинсы</a>
+                    <a href="catalog.html?category=Одежда&subcategory=Топы">Топы</a>
+                    <a href="catalog.html?category=Одежда&subcategory=Худи">Худи</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">💋 Косметика</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Косметика&subcategory=Уходовая косметика">Уходовая косметика</a>
+                    <a href="catalog.html?category=Косметика&subcategory=Декоративная косметика">Декоративная косметика</a>
+                    <a href="catalog.html?category=Косметика&subcategory=Парфюмерия">Парфюмерия</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">🎂 Коллекционирование</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Коллекционирование&subcategory=Фигурки и Куклы">Фигурки и Куклы</a>
+                    <a href="catalog.html?category=Коллекционирование&subcategory=Мягкие игрушки">Мягкие игрушки</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">🙌 Обувь</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Обувь&subcategory=Кроссовки и кеды">Кроссовки и кеды</a>
+                    <a href="catalog.html?category=Обувь&subcategory=Туфли">Туфли</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">👜 Сумки</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Сумки&subcategory=Сумки и Косметички">Сумки и Косметички</a>
+                    <a href="catalog.html?category=Сумки&subcategory=Обвесы и брелоки">Обвесы и брелоки</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="menu-btn">💌 Украшения</button>
+                <div class="submenu">
+                    <a href="catalog.html?category=Украшения&subcategory=Ожерелья и подвески">Ожерелья и подвески</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Кольца и браслеты">Кольца и браслеты</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Очки">Очки</a>
+                    <a href="catalog.html?category=Украшения&subcategory=Часы">Часы</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="right">
+            <button class="auth-btn" id="authBtn" onclick="checkAuthAndRedirect()">👤 Войти</button>
+            <button class="cart-btn" onclick="location.href='cart.html'">🛒 Корзина <span class="count" id="cartCount">0</span></button>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>🔐 Вход в кабинет</h2>
+            
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Пароль">
+            
+            <div id="message" class="message"></div>
+            
+            <button onclick="handleLogin()">Войти</button>
+            
+            <div class="hint">
+                👤 Обычный пользователь: user@gmail.com / 123<br>
+                👑 Администратор: admin@gmail.com / 123
+            </div>
+            
+            <div class="admin-hint">
+                ⚡ Администратор может добавлять, редактировать и удалять товары
+            </div>
+            
+            <div class="back-link">
+                <a href="index.html">← На главную</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageEl = document.getElementById('message');
+            
+            if (!email || !password) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Заполните все поля';
+                return;
+            }
+            
+            let isAdmin = false;
+            if (email === 'admin@gmail.com' && password === '123') {
+                isAdmin = true;
+            } else if (password.length < 3) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Пароль должен быть минимум 3 символа';
+                return;
+            }
+            
+            localStorage.setItem('user', JSON.stringify({ email: email, isAdmin: isAdmin }));
+            
+            messageEl.className = 'message success';
+            messageEl.textContent = 'Успешный вход! Перенаправление...';
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+        
+        function checkAuthAndRedirect() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                window.location.href = 'account.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            const user = localStorage.getItem('user');
+            const authBtn = document.getElementById('authBtn');
+            if (user) {
+                const userData = JSON.parse(user);
+                authBtn.innerHTML = `👤 ${userData.email.split('@')[0]}`;
+            }
+        });
+    </script>
+</body>
+</html>
